@@ -4,11 +4,13 @@
 variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
+  default="b1gmbfas45d7912pmsh3"
 }
 
 variable "folder_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
+  default="b1gv3l8a5jtk7slrt2ju"
 }
 
 variable "default_zone" {
@@ -27,7 +29,6 @@ variable "vpc_name" {
   default     = "develop"
   description = "VPC network & subnet name"
 }
-
 
 ###ssh vars
 
