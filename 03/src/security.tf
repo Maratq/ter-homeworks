@@ -1,3 +1,14 @@
+# Data-блоки для существующей инфраструктуры
+data "yandex_vpc_network" "develop" {
+  name      = "default"
+  folder_id = var.folder_id  # ← добавьте
+}
+
+data "yandex_vpc_subnet" "develop" {
+  name      = "default-ru-central1-b"
+  folder_id = var.folder_id  # ← добавьте
+}
+
 variable "security_group_ingress" {
   description = "secrules ingress"
   type = list(object(
@@ -31,7 +42,6 @@ variable "security_group_ingress" {
   ]
 }
 
-
 variable "security_group_egress" {
   description = "secrules egress"
   type = list(object(
@@ -54,10 +64,9 @@ variable "security_group_egress" {
   ]
 }
 
-
 resource "yandex_vpc_security_group" "example" {
   name       = "example_dynamic"
-  network_id = yandex_vpc_network.develop.id
+  network_id = data.yandex_vpc_network.develop.id
   folder_id  = var.folder_id
 
   dynamic "ingress" {
