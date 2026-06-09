@@ -1,57 +1,91 @@
 ###cloud vars
 variable "token" {
   type        = string
-  description = "OAuth-token; https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token"
+  description = "OAuth-token"
+  sensitive   = true
 }
 
 variable "cloud_id" {
   type        = string
-  description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
+  description = "Yandex Cloud ID"
 }
 
 variable "folder_id" {
   type        = string
-  description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
+  description = "Yandex Folder ID"
 }
 
 variable "default_zone" {
   type        = string
   default     = "ru-central1-a"
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-variable "default_cidr" {
-  type        = list(string)
-  default     = ["10.0.1.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
-
-variable "vpc_name" {
-  type        = string
-  default     = "develop"
-  description = "VPC network&subnet name"
+  description = "Default availability zone"
 }
 
 ###common vars
-
-variable "vms_ssh_root_key" {
+variable "username" {
   type        = string
-  default     = "your_ssh_ed25519_key"
-  description = "ssh-keygen -t ed25519"
+  default     = "ubuntu"
+  description = "VM username"
 }
 
-###example vm_web var
-variable "vm_web_name" {
+variable "ssh_public_key_path" {
   type        = string
-  default     = "netology-develop-platform-web"
-  description = "example vm_web_ prefix"
+  default     = "~/.ssh/id_rsa.pub"
+  description = "Path to SSH public key"
 }
 
-###example vm_db var
-variable "vm_db_name" {
+variable "image_id" {
   type        = string
-  default     = "netology-develop-platform-db"
-  description = "example vm_db_ prefix"
+  default     = "fd8271s93s3p5dhe1d9h"
+  description = "Ubuntu image ID"
 }
 
+### VPC module config
+variable "vpc_config" {
+  type = object({
+    name = string
+    zone = string
+    cidr = string
+  })
+  default = {
+    name = "develop"
+    zone = "ru-central1-b"
+    cidr = "10.0.1.0/24"
+  }
+}
 
+### Marketing VM config
+variable "marketing_vm" {
+  type = object({
+    name    = string
+    project = string
+    env     = string
+    cores   = number
+    memory  = number
+  })
+  default = {
+    name    = "marketing-vm"
+    project = "marketing"
+    env     = "prod"
+    cores   = 2
+    memory  = 2
+  }
+}
 
+### Analytics VM config
+variable "analytics_vm" {
+  type = object({
+    name    = string
+    project = string
+    env     = string
+    cores   = number
+    memory  = number
+  })
+  default = {
+    name    = "analytics-vm"
+    project = "analytics"
+    env     = "prod"
+    cores   = 2
+    memory  = 2
+  }
+}
