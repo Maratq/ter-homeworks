@@ -17,6 +17,3 @@ output "subnet_zone" {
   description = "Zone of the subnet"
   value       = yandex_vpc_subnet.this.zone
 }
-output "network_id" {
-  value = data.yandex_vpc_network.this.id
-}

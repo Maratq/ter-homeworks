@@ -1,10 +1,10 @@
-# VPC module (использует существующую сеть default и подсеть develop)
+# VPC module (использует существующую сеть default)
 module "vpc_dev" {
   source       = "./modules/vpc"
   network_name = "default"
-  env_name     = "develop"
+  env_name     = var.vpc_config.name
   zone         = var.default_zone
-  cidr         = "10.0.2.0/24"
+  cidr         = var.vpc_config.cidr
 }
 
 # Cloud-init template

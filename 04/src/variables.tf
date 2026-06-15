@@ -41,6 +41,18 @@ variable "image_id" {
 }
 
 ### VPC module config
+variable "vpc_config" {
+  type = object({
+    name = string
+    zone = string
+    cidr = string
+  })
+  default = {
+    name = "develop"
+    zone = "ru-central1-b"
+    cidr = "10.0.1.0/24"
+  }
+}
 
 ### Marketing VM config
 variable "marketing_vm" {
