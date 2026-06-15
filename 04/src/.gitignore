@@ -9,4 +9,15 @@
 *.tfstate.*
 
 # own secret vars store.
-personal.auto.tfvars
+personal.auto.tfvars04/src/backend-config.tfvars
+*.tfvars
+*.tfvars.json
+backend-config.tfvars
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.*
+04/src/backend-config.tfvars
+*.tfvars

@@ -1,10 +1,10 @@
-# VPC module (использует существующую сеть default)
+# VPC module (использует существующую сеть default и подсеть develop)
 module "vpc_dev" {
   source       = "./modules/vpc"
   network_name = "default"
-  env_name     = var.vpc_config.name
+  env_name     = "develop"
   zone         = var.default_zone
-  cidr         = var.vpc_config.cidr
+  cidr         = "10.0.2.0/24"
 }
 
 # Cloud-init template
@@ -24,13 +24,14 @@ module "marketing_vm" {
     project = var.marketing_vm.project
     env     = var.marketing_vm.env
   }
-  zone        = var.default_zone
-  folder_id   = var.folder_id
-  image_id    = var.image_id
-  subnet_id   = module.vpc_dev.subnet_id
-  user_data   = local.cloudinit
-  cores       = var.marketing_vm.cores
-  memory      = var.marketing_vm.memory
+  zone         = var.default_zone
+  folder_id    = var.folder_id
+  image_id     = var.image_id
+  subnet_id    = module.vpc_dev.subnet_id
+  network_id   = module.vpc_dev.network_id
+  user_data    = local.cloudinit
+  cores        = var.marketing_vm.cores
+  memory       = var.marketing_vm.memory
 }
 
 # Analytics VM module
@@ -42,11 +43,12 @@ module "analytics_vm" {
     project = var.analytics_vm.project
     env     = var.analytics_vm.env
   }
-  zone        = var.default_zone
-  folder_id   = var.folder_id
-  image_id    = var.image_id
-  subnet_id   = module.vpc_dev.subnet_id
-  user_data   = local.cloudinit
-  cores       = var.analytics_vm.cores
-  memory      = var.analytics_vm.memory
+  zone         = var.default_zone
+  folder_id    = var.folder_id
+  image_id     = var.image_id
+  subnet_id    = module.vpc_dev.subnet_id
+  network_id   = module.vpc_dev.network_id
+  user_data    = local.cloudinit
+  cores        = var.analytics_vm.cores
+  memory       = var.analytics_vm.memory
 }

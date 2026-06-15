@@ -1,5 +1,22 @@
 terraform {
   required_version = "~>1.12.0"
+  
+  backend "s3" {
+    bucket                      = "terraform-state-bucket-2"
+    key                         = "terraform.tfstate"
+    region                      = "ru-central1"
+    
+    endpoints = {
+      s3 = "https://storage.yandexcloud.net"
+    }
+    
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+    use_lockfile                = true
+  }
+  
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
@@ -9,15 +26,6 @@ terraform {
 }
 
 provider "yandex" {
-  token     = var.token
-  cloud_id  = var.cloud_id
-  folder_id = var.folder_id
-  zone      = var.default_zone
-}
-
-# Передача провайдера в модули
-provider "yandex" {
-  alias = "default"
   token     = var.token
   cloud_id  = var.cloud_id
   folder_id = var.folder_id
