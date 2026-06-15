@@ -52,3 +52,8 @@ variable "core_fraction" {
   default     = 5
   description = "Core fraction"
 }
+
+variable "network_id" {
+  description = "VPC network ID"
+  type        = string
+}

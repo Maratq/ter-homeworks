@@ -89,3 +89,6 @@ variable "analytics_vm" {
     memory  = 2
   }
 }
+
+
+
